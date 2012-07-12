@@ -1,0 +1,3 @@
+[submodule "vendor/standingwave3"]
+	path = vendor/standingwave3
+	url = git://github.com/bpartridge/standingwave3.git
