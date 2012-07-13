@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>StandingWaveJS</title>
+  <link rel="stylesheet" type="text/css" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+  <script type="text/javascript" src="standingwavejs.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>StandingWaveJS</h1>
+    <div id="swfContainer"></div>
+  </div>
+  <script>
+    log = function() {console.log.apply(console, arguments);}
+
+    swfobject.embedSWF("standingwavejs.swf", "swfContainer",
+                       "10", "10", //dimensions
+                       "9", //required version
+                       undefined, //express install swf
+                       {bridgeName:'standingwavejs'}, //flash vars
+                       {allowScriptAccess:'always'}
+                       );
+
+    SWJS.whenInitialized(function() {
+      var source = SWJS.create('SineSource', SWJS.create('AudioDescriptor'), 5, 440);
+      var player = SWJS.create('AudioPlayer');
+      player.play(source);
+    })
+  </script>
+</body>
+</html>

@@ -3,8 +3,11 @@
   "name": "standingwavejs",
   "description": "A Javascript wrapper for Standing Wave 3, a Flash library for producing dynamic audio. Packaged for use by Browserify and similar utilities.",
   "version": "0.0.0",
+  "main": "standingwavejs.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "connect": "*"  
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
