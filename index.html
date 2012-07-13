@@ -3,28 +3,57 @@
   <title>StandingWaveJS</title>
   <link rel="stylesheet" type="text/css" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="standingwavejs.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>StandingWaveJS</h1>
+    <div class="btn" id="piano">Load Piano Note &amp; Play</div>
     <div id="swfContainer"></div>
   </div>
   <script>
     swfobject.embedSWF("standingwavejs.swf", "swfContainer",
                        "10", "10", //dimensions
-                       "9", //required version
+                       "10", //required version
                        undefined, //express install swf
                        {bridgeName:'standingwavejs'}, //flash vars
                        {allowScriptAccess:'always'}
                        );
 
-    SWJS.whenInitialized(function() {
-      var desc = SWJS.newAudioDescriptor();
-      var source = SWJS.newSineSource(desc, 5, 440);
-      var player = SWJS.newAudioPlayer();
-      player.play(source);
-    })
+    $("#piano").click(function() {
+      sw.whenInitialized(function() {
+        var desc = sw.newAudioDescriptor();
+        sw.loadSound("piano_Ab4.mp3", function(err, sound) {
+          if (err) return console.error(err);
+          var player = sw.newAudioPlayer();
+          var s1 = sw.newSoundSource(sound);
+          var s2 = sw.newResamplingFilter(s1, 1.5);
+          var s3 = sw.newResamplingFilter(s2, 1.5);
+          var s4 = sw.newResamplingFilter(s2, 5/3);
+          var seq = sw.newListPerformance();
+          seq.addSourceAt(0, s1);
+          seq.addSourceAt(0.1, s2);
+          seq.addSourceAt(0.2, s3);
+          seq.addSourceAt(0.3, s4);
+          var perf = sw.newAudioPerformer(seq, desc);
+          var perf2 = perf.clone();
+          player.play(perf);
+
+          // Currently, saving files is not working due to security
+          // restrictions, but this is in theory how easy it would be to
+          // download a .wav file of an entire sequence!
+          
+          // try {
+          //   $('<div></div>').addClass('btn').click(function() {
+          //     var fullSamp = perf2.getSample(perf2.getFrameCount());
+          //     var wavArray = sw.writeSampleToWavFile(fullSamp);
+          //     sw.saveFile(wavArray, "plinks.wav");
+          //   }).text("Download .wav").appendTo(".container");
+          // } catch(e) {console.log(e);}
+        });
+      });
+    });
   </script>
 </body>
 </html>

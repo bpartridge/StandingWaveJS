@@ -1,7 +1,14 @@
 package {
   import bridge.*;
-  import flash.external.ExternalInterface;
   import flash.display.Sprite;
+  import flash.external.ExternalInterface;
+  import flash.media.Sound;
+  import flash.net.URLRequest;
+  import flash.net.URLStream;
+  import flash.net.FileReference;
+  import flash.utils.ByteArray;
+  import mx.controls.Alert;
+  import mx.events.CloseEvent;
   import com.noteflight.standingwave3.elements.*;
   import com.noteflight.standingwave3.filters.*;
   import com.noteflight.standingwave3.formats.*;
@@ -65,7 +72,12 @@ package {
         case "ToneControlFilter": cls = ToneControlFilter; break;
         case "ValueModulation": cls = ValueModulation; break;
         case "VibratoModulation": cls = VibratoModulation; break;
-        case "WaveFile": cls = WaveFile; break;
+        // Non-StandingWave classes that are useful
+        case "Sound": cls = Sound; break;
+        case "URLRequest": cls = URLRequest; break;
+        case "URLStream": cls = URLStream; break;
+        case "FileReference": cls = FileReference; break;
+        case "ByteArray": cls = ByteArray; break;
       }
       if (!cls) return null;
       switch (args.length) {
@@ -74,9 +86,27 @@ package {
         case 2: return new cls(args[0], args[1]);
         case 3: return new cls(args[0], args[1], args[2]);
         case 4: return new cls(args[0], args[1], args[2], args[3]);
-        case 5: return new cls(args[0], args[1], args[2], args[3], args[5]);
+        case 5: return new cls(args[0], args[1], args[2], args[3], args[4]);
+        case 6: return new cls(args[0], args[1], args[2], args[3], args[4], args[5]);
       }
       return null;
+    }
+
+    public function saveFile(data:*, filename:String = "", title:String = "Save", msg:String = "Please choose a location to save this file..."):void {
+      Alert.show(msg, title, Alert.OK|Alert.CANCEL, null, function(event:CloseEvent):* {
+        if (event.detail == Alert.OK) {
+          var file:FileReference = new FileReference();
+          file.save(data, filename);
+        }
+      })
+    }
+
+    public function writeSampleToWavFile(sample:Sample):ByteArray {
+      return WaveFile.writeSampleToWavFile(sample);
+    }
+
+    public function readSampleFromWav(wav:ByteArray):Sample {
+      return WaveFile.createSample(wav);
     }
   }
 }
