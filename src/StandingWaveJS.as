@@ -67,7 +67,7 @@ package {
         case "VibratoModulation": cls = VibratoModulation; break;
         case "WaveFile": cls = WaveFile; break;
       }
-      if (!cls) return undefined;
+      if (!cls) return null;
       switch (args.length) {
         case 0: return new cls();
         case 1: return new cls(args[0]);
@@ -76,7 +76,7 @@ package {
         case 4: return new cls(args[0], args[1], args[2], args[3]);
         case 5: return new cls(args[0], args[1], args[2], args[3], args[5]);
       }
-      return undefined;
+      return null;
     }
   }
 }

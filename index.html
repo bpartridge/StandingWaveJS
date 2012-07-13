@@ -11,8 +11,6 @@
     <div id="swfContainer"></div>
   </div>
   <script>
-    log = function() {console.log.apply(console, arguments);}
-
     swfobject.embedSWF("standingwavejs.swf", "swfContainer",
                        "10", "10", //dimensions
                        "9", //required version
@@ -22,8 +20,9 @@
                        );
 
     SWJS.whenInitialized(function() {
-      var source = SWJS.create('SineSource', SWJS.create('AudioDescriptor'), 5, 440);
-      var player = SWJS.create('AudioPlayer');
+      var desc = SWJS.newAudioDescriptor();
+      var source = SWJS.newSineSource(desc, 5, 440);
+      var player = SWJS.newAudioPlayer();
       player.play(source);
     })
   </script>

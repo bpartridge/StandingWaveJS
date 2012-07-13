@@ -31,5 +31,5 @@ $(OUTNAME).js: $(JS_SOURCES)
 	cat $+ > $@
 
 clean:
-	rm $(OUTNAME).js
-	rm $(OUTNAME).swf
+	rm -f $(OUTNAME).js
+	rm -f $(OUTNAME).swf
