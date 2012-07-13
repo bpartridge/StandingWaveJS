@@ -5,11 +5,14 @@ STANDINGWAVE_SRC = $(STANDINGWAVE_ROOT)/sw3/src
 
 ALCDIR = $(STANDINGWAVE_ROOT)/alchemy
 ALCLIB = $(ALCDIR)/awave.swc
+
 FABRIDGE_SRC = vendor/fabridge/src
 FABRIDGE_AS = $(FABRIDGE_SRC)/bridge/FABridge.as
 FABRIDGE_JS = $(FABRIDGE_SRC)/bridge/FABridge.js
 
-JS_SOURCES = src/prefix.js $(FABRIDGE_JS) src/main.js src/suffix.js
+SWFOBJECT_JS = vendor/swfobject/swfobject.js
+
+JS_SOURCES = src/prefix.js $(FABRIDGE_JS) $(SWFOBJECT_JS) src/main.js src/suffix.js
 
 OUTNAME = standingwavejs
 

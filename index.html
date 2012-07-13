@@ -2,8 +2,8 @@
 <head>
   <title>StandingWaveJS</title>
   <link rel="stylesheet" type="text/css" href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-combined.min.css">
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script> -->
   <script type="text/javascript" src="standingwavejs.js"></script>
 </head>
 <body>
@@ -13,6 +13,7 @@
     <div id="swfContainer"></div>
   </div>
   <script>
+    /*
     swfobject.embedSWF("standingwavejs.swf", "swfContainer",
                        "10", "10", //dimensions
                        "10", //required version
@@ -20,6 +21,9 @@
                        {bridgeName:'standingwavejs'}, //flash vars
                        {allowScriptAccess:'always'}
                        );
+    */
+    // Or, simply do this, which does the same.
+    sw.ensureEmbedded();
 
     $("#piano").click(function() {
       sw.whenInitialized(function() {
@@ -43,7 +47,7 @@
           // Currently, saving files is not working due to security
           // restrictions, but this is in theory how easy it would be to
           // download a .wav file of an entire sequence!
-          
+
           // try {
           //   $('<div></div>').addClass('btn').click(function() {
           //     var fullSamp = perf2.getSample(perf2.getFrameCount());

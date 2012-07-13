@@ -6,6 +6,31 @@
 
   var SWJS = {};
   SWJS.FABridge = FABridge;
+
+  SWJS.ensureEmbedded = function(swfPath) {
+    try {
+      var DIV_ID = "standingwavejscontainer";
+      var prevDiv = document.getElementById(DIV_ID);
+      if (prevDiv) return false;
+      var div = document.createElement('div');
+      div.id = DIV_ID;
+      div.setAttribute('id', DIV_ID);
+      document.body.appendChild(div);
+      swfPath = swfPath || "standingwavejs.swf";
+      swfobject.embedSWF(swfPath, DIV_ID,
+        '10', '10', // dimensions
+        '10', // required version
+        undefined, //express install swf
+        {bridgeName:'standingwavejs'}, //flash vars
+        {allowScriptAccess:'always'}
+        );
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   SWJS.create = function() {
     if (SWJS.bridge) return SWJS.bridge.create.apply(SWJS.bridge, arguments);
   }
