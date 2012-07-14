@@ -413,6 +413,11 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         return result;
     }
 
+    public function serializeError(e:Error):*
+    {
+        return serialize("__FLASHERROR__"+"||"+(e.getStackTrace() || e.message));
+    }
+
     /**
      * deserializes a value passed in from javascript. See serialize for details on how values are packed and
      * unpacked for transfer across the bridge.
@@ -532,7 +537,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
         catch(e:Error)
         {
-            return serialize("__FLASHERROR__"+"||"+e.message);
+            return serializeError(e);
         }
 
         return (objRef == -1)? baseObject : localInstanceMap[objRef];
@@ -567,7 +572,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
         catch(e:Error)
         {
-             return serialize("__FLASHERROR__"+"||"+e.message)
+             return serializeError(e);
         }
         
         return ref;
@@ -643,7 +648,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
                             }
                             catch(e:Error)
                             {
-                                return serialize("__FLASHERROR__"+"||"+e.message);
+                                return serializeError(e);
                             }
                         },1);
                     }
@@ -664,7 +669,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
         catch(e:Error)
         {
-            return serialize("__FLASHERROR__"+"||"+e.message);
+            return serializeError(e);
         }
 
         return remoteFunctionCache[functionID];
@@ -733,7 +738,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         catch(e:Error)
         {
             releaseRef(objID);
-            return serialize("__FLASHERROR__" + "||" + e.message);
+            return serializeError(e);
         }    
     }
 
@@ -751,7 +756,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         catch(e:Error)
         {
             releaseRef(objID);
-            return serialize("__FLASHERROR__" + "||" + e.message);
+            return serializeError(e);
         }
     }
 
@@ -774,7 +779,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
         catch(e:Error)
         {
-            return serialize("__FLASHERROR__"+"||"+e.message);
+            return serializeError(e);
         }
     }
 
@@ -794,7 +799,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
         catch(e:Error)
         {
-            return serialize("__FLASHERROR__"+"||"+e.message);
+            return serializeError(e);
         }
     }
 
@@ -833,7 +838,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         catch(e:Error)
         {
             releaseRef(objID);
-            return serialize("__FLASHERROR__" + "||" + e.message);
+            return serializeError(e);
         }
     }
     
@@ -929,7 +934,7 @@ public class FABridge extends EventDispatcher implements IMXMLObject
         }
         catch(e:Error)
         {
-            return serialize("__FLASHERROR__" + "||" + e.message);
+            return serializeError(e);
         }
 
         // make sure the reference is known
