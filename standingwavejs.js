@@ -605,7 +605,7 @@ swfobject=function(){var Z="undefined",P="object",B="Shockwave Flash",h="Shockwa
       div.id = DIV_ID;
       div.setAttribute('id', DIV_ID);
       document.body.appendChild(div);
-      swfPath = swfPath || "standingwavejs.swf";
+      swfPath = swfPath || "/standingwavejs.swf";
       swfobject.embedSWF(swfPath, DIV_ID,
         '10', '10', // dimensions
         '10', // required version
