@@ -25,6 +25,7 @@ $(OUTNAME).swf: src/StandingWaveJS.as $(ALCLIB) $(FABRIDGE_AS)
 		-compiler.source-path $(FABRIDGE_SRC) $(STANDINGWAVE_SRC) \
 		-static-link-runtime-shared-libraries \
 		-compiler.warn-bad-bool-assignment=false \
+		-verbose-stacktraces \
 		-output $@ \
 		$<
 
